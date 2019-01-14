@@ -1,1 +1,6 @@
 C:\Projects\ShortestPathAlgorithms\bin\Debug\ShortestPathAlgorithms.exe.config
+C:\Projects\ShortestPathAlgorithms\bin\Debug\ShortestPathAlgorithms.exe
+C:\Projects\ShortestPathAlgorithms\bin\Debug\ShortestPathAlgorithms.pdb
+C:\Projects\ShortestPathAlgorithms\obj\Debug\ShortestPathAlgorithms.csprojResolveAssemblyReference.cache
+C:\Projects\ShortestPathAlgorithms\obj\Debug\ShortestPathAlgorithms.exe
+C:\Projects\ShortestPathAlgorithms\obj\Debug\ShortestPathAlgorithms.pdb
