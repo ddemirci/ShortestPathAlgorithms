@@ -32,31 +32,36 @@ namespace ShortestPathAlgorithms
             }
         }
 
-        public Dictionary<char, int> solveByDijkstrasAlgorithm(char startingNode)
+        public Dictionary<char, int> solveByDijkstrasAlgorithm(char currentNode)
         {
-            if(!isVisited[startingNode])
-            {
-                isVisited[startingNode] = true;
-                visitedNodes++;
-                minDistances[startingNode] = 0;
-                minPaths[startingNode] = startingNode.ToString();
-            }
+            startDijkstrasAlgorithm(currentNode);
 
-            var neighbours = findNotVisitedNeighbours(startingNode);
-            char nextNode = findNearestNeighbours(startingNode, neighbours);
-            while(visitedNodes != numberOfNodes && !nextNode.Equals(' '))
+            //Main while
+            while(visitedNodes != numberOfNodes)
             {
-                isVisited[nextNode] = true;
-                visitedNodes++;
-                var neigh = findNotVisitedNeighbours(nextNode);
-                if (neigh.Count == 0)
+                var neighbours = findNotVisitedNeighbours(currentNode);
+                if (neighbours.Count == 0) //There is no neighbour
                     break;
-                nextNode = findNearestNeighbours(nextNode, neigh);
+                else
+                {
+                    isVisited[currentNode] = true;
+                    currentNode = findNearestNeighbours(currentNode, neighbours);
+                    visitedNodes++;
+                }
             }
             return minDistances;
         }
 
-
+        public void startDijkstrasAlgorithm(char currentNode)
+        {
+            if (!isVisited[currentNode])
+            {
+                isVisited[currentNode] = true;
+                visitedNodes++;
+                minDistances[currentNode] = 0;
+                minPaths[currentNode] = currentNode.ToString();
+            }
+        }
 
         public Dictionary<char,int> findNotVisitedNeighbours(char currentNode)
         {
