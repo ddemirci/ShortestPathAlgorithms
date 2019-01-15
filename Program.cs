@@ -21,7 +21,7 @@ namespace ShortestPathAlgorithms
             relations.Add(new Relations('D', 'E', 7));
 
             Program pg = new Program();
-            pg.printRelations(relations);
+            //pg.printRelations(relations); //To be able to see relations
             DijkstrasAlgorithm djk = new DijkstrasAlgorithm(numberOfNodes, relations);
             Dictionary<char,int> final = djk.solveByDijkstrasAlgorithm('C');
             pg.printDictionary(final);
@@ -39,7 +39,8 @@ namespace ShortestPathAlgorithms
 
         public void printDictionary(Dictionary<char, int> dict)
         {
-            foreach(var item in dict)
+            Console.WriteLine("Minimum costs to travel:");
+            foreach (var item in dict)
             {
                 Console.WriteLine(item.Key + " " + item.Value);
             }

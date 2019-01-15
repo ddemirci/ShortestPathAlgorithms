@@ -49,6 +49,15 @@ namespace ShortestPathAlgorithms
                     visitedNodes++;
                 }
             }
+
+            //printMinPaths();
+            Console.WriteLine("Minimum paths to each node");
+            foreach(var path in minPaths)
+            {
+                Console.WriteLine("Path to " + path.Key + " => " + path.Value);
+            }
+            Console.WriteLine(" ");
+
             return minDistances;
         }
 
@@ -82,7 +91,11 @@ namespace ShortestPathAlgorithms
             foreach(var item in neighbours)
             {
                 if( minDistances[item.Key] > minDistances[currentNode] + item.Value)
+                {
                     minDistances[item.Key] = minDistances[currentNode] + item.Value;
+                    //Update the path
+                    minPaths[item.Key] = minPaths[currentNode] + " " + item.Key;
+                }
             }
 
             //To find the closest neighbour
@@ -98,5 +111,6 @@ namespace ShortestPathAlgorithms
             }
             return nearest;
         }
+
     }
 }
