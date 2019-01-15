@@ -22,6 +22,9 @@ namespace ShortestPathAlgorithms
 
             Program pg = new Program();
             pg.printRelations(relations);
+            DijkstrasAlgorithm djk = new DijkstrasAlgorithm(numberOfNodes, relations);
+            Dictionary<char,int> final = djk.solveByDijkstrasAlgorithm('C');
+            pg.printDictionary(final);
             Console.ReadKey();
             
         }
@@ -31,6 +34,14 @@ namespace ShortestPathAlgorithms
             foreach(Relations rel in relations)
             {
                 Console.WriteLine(rel.source.ToString() + " ==> " + rel.target.ToString() + "  " + rel.distance);
+            }
+        }
+
+        public void printDictionary(Dictionary<char, int> dict)
+        {
+            foreach(var item in dict)
+            {
+                Console.WriteLine(item.Key + " " + item.Value);
             }
         }
     }

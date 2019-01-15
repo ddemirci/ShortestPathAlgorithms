@@ -15,7 +15,7 @@ namespace ShortestPathAlgorithms
         Dictionary<char, int> minDistances;
         Dictionary<char, string> minPaths;
 
-        public DijkstrasAlgorithm(int numberOfNodes, List<Relations> relations, char startingNode)
+        public DijkstrasAlgorithm(int numberOfNodes, List<Relations> relations)
         {
             this.numberOfNodes = numberOfNodes;
             this.relations = relations;
@@ -30,11 +30,9 @@ namespace ShortestPathAlgorithms
                 minDistances.Add(Convert.ToChar('A' + i), int.MaxValue);
                 minPaths.Add(Convert.ToChar('A' + i), string.Empty);
             }
-            //TODO: Implement
-            //solveByDijkstrasAlgorithm(startingNode,relations)
         }
 
-        public void solveByDijkstrasAlgorithm(char startingNode, List<Relations> relations)
+        public Dictionary<char, int> solveByDijkstrasAlgorithm(char startingNode)
         {
             if(!isVisited[startingNode])
             {
@@ -43,18 +41,31 @@ namespace ShortestPathAlgorithms
                 minDistances[startingNode] = 0;
                 minPaths[startingNode] = startingNode.ToString();
             }
+
+            var neighbours = findNotVisitedNeighbours(startingNode);
+            char nextNode = findNearestNeighbours(startingNode, neighbours);
+            while(visitedNodes != numberOfNodes && !nextNode.Equals(' '))
+            {
+                isVisited[nextNode] = true;
+                visitedNodes++;
+                var neigh = findNotVisitedNeighbours(nextNode);
+                if (neigh.Count == 0)
+                    break;
+                nextNode = findNearestNeighbours(nextNode, neigh);
+            }
+            return minDistances;
         }
 
 
 
-        public Dictionary<char,int> findNotVisitedNeighbours(char currentNode, List<Relations> relations)
+        public Dictionary<char,int> findNotVisitedNeighbours(char currentNode)
         {
             Dictionary<char, int> neighbours = new Dictionary<char, int>();
             foreach (Relations rel in relations)
             {
-                if (!isVisited[rel.source] && rel.source.Equals(currentNode))
+                if (rel.source.Equals(currentNode) && !isVisited[rel.target])
                     neighbours.Add(rel.target, rel.distance);
-                else if (!isVisited[rel.target] && rel.target.Equals(currentNode))
+                else if (rel.target.Equals(currentNode) && !isVisited[rel.source] )
                     neighbours.Add(rel.source, rel.distance);
             }
             return neighbours;
